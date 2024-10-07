@@ -7,10 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Boat {
+  boat_id   Int    @id @default(autoincrement())
+  boat_name String @db.VarChar(255)
+  capacity  Int
+  reservations Reservation[]
+}
+
+model Reservation {
+  rsv_id           Int      @id @default(autoincrement())
+  boat_id          Int
+  user_id          Int
+  rsv_datetime     DateTime @default(now())  // Tambahkan default value
+  number_of_people Int
+
+  boat   Boat   @relation(fields: [boat_id], references: [boat_id])
+  user   User   @relation(fields: [user_id], references: [id])
+}
+
+
+
 model User {
   id       Int    @id @default(autoincrement())
   name     String
-  email    String @unique
+  email    String @unique(map: "User_email_key")
   password String
+  reservations Reservation[]
 }
-

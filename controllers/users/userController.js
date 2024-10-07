@@ -1,6 +1,7 @@
-const prisma = require('../config/database');
-const { hashPassword, verifyPassword, generateToken } = require('../services/authService');
-const logger = require('../utils/logger')
+const prisma = require('../../config/database');
+const { handleError } = require('../../utils/errorHandler');
+const { hashPassword, verifyPassword, generateToken } = require('../../services/AuthService');
+const logger = require('../../utils/logger')
 
 exports.register = async (req, res) => {
   const {name, email, password} = req.body;
@@ -13,9 +14,9 @@ exports.register = async (req, res) => {
         password: hashedPassword,
       },
     });
-    res.status(201).json({ message: 'user created successfully yaa', user });
+    res.status(201).json({ message: 'User created successfully', user });
   } catch (e) {
-    res.json({ message: 'something went wrong' });
+    handleError(e,res);
   }
 }
 
@@ -28,13 +29,13 @@ exports.login = async (req, res) => {
     }
     const isPasswordValid = await verifyPassword(password, user.password);
     if (!isPasswordValid) {
-      return res.status(403).json( {message: 'wrong password'} );
+      return res.status(403).json( {message: 'Wrong password'} );
     }
 
     const token = generateToken(user.id, user.email);
     res.status(200).json({message: 'Login Successfull',token});
   } catch(e) {
-    res.status(500).json({message: `something went wrong ${e}`, });
+    handleError(e,res);
   }
 };
 
@@ -42,17 +43,17 @@ exports.login = async (req, res) => {
 exports.getProfile = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.id } });
-    
     res.json(user);
+
   } catch (error) {
-    res.status(500).json({ error: 'Something went wrong' });
+    handleError(e,res);
   }
 };
 
 exports.getIndex = async (req, res) => {
   try {
-    res.status(200).json({ message: 'hai there !' })
+    res.status(200).json({ message: 'hai there !' });
   } catch (e) {
-    res.status(500).json({e : 'ndak tau'})
+    handleError(e,res);
   }
 }

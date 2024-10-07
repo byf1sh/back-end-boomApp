@@ -1,0 +1,25 @@
+Boom rafting
+Objek DB:
+	Tabel boat
+	1. boat_id
+	2. boat_name
+	3. capacity
+
+	Tabel reservation
+	1. rsv_id
+	2. boat_id (fk)
+	3. user_id (fk)
+	4. rsv_date format (2024-10-09)
+	6. rsv_time format (23:51:29.000000)
+	7. number_of_people
+
+	Tabel users
+	1. user_id
+	2. username
+	3. email
+	
+
+
+setelah login dihadapkan dengan home page: 
+data yang dibutuhkan:
+	1. data ketersediaan rafting
