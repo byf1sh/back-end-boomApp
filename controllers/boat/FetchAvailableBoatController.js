@@ -1,5 +1,6 @@
 const { handleError } = require('../../utils/errorHandler');
 const FetchAvailableBoatService = require('../../services/FetchAvailableBoatService');
+const logger = require('../../utils/logger');
 
 exports.fetchAvailBoats = async (req,res) => {
     try{
@@ -8,7 +9,6 @@ exports.fetchAvailBoats = async (req,res) => {
         if (!dateTime) {
             return res.status(400).json({ error: 'Missing dateTime parameter' });
         }
-
         const availableBoats = await FetchAvailableBoatService.fetchAvailBoats(dateTime);
 
         res.json(availableBoats);

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `reservation` ADD COLUMN `rsv_datetime_end` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);

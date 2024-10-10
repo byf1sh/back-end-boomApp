@@ -12,17 +12,7 @@ model Boat {
   boat_name String @db.VarChar(255)
   capacity  Int
   reservations Reservation[]
-}
-
-model Reservation {
-  rsv_id           Int      @id @default(autoincrement())
-  boat_id          Int
-  user_id          Int
-  rsv_datetime     DateTime @default(now())  // Tambahkan default value
-  number_of_people Int
-
-  boat   Boat   @relation(fields: [boat_id], references: [boat_id])
-  user   User   @relation(fields: [user_id], references: [id])
+  cancel_reservations Cancel_Reservation[]
 }
 
 model User {
@@ -31,4 +21,31 @@ model User {
   email    String @unique(map: "User_email_key")
   password String
   reservations Reservation[]
+  cancel_reservations Cancel_Reservation[]
+}
+
+model Reservation {
+  rsv_id           Int      @id @default(autoincrement())
+  boat_id          Int
+  user_id          Int
+  rsv_datetime     DateTime @default(now())  // Tambahkan default value
+  rsv_datetime_end     DateTime @default(now())  // Tambahkan default value
+  number_of_people Int
+
+  boat   Boat   @relation(fields: [boat_id], references: [boat_id])
+  user   User   @relation(fields: [user_id], references: [id])
+}
+
+model Cancel_Reservation {
+  cancel_id        Int      @id @default(autoincrement())
+  boat_id          Int
+  user_id          Int
+  rsv_id           Int
+  rsv_datetime     DateTime
+  rsv_datetime_end DateTime
+  number_of_people Int
+  canceled_at      DateTime @default(now()) // Menyimpan kapan reservasi dibatalkan
+
+  boat   Boat   @relation(fields: [boat_id], references: [boat_id])
+  user   User   @relation(fields: [user_id], references: [id])
 }

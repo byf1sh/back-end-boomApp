@@ -1,14 +1,28 @@
+const { DateTime } = require('luxon');
 const prisma = require('../config/database');
 const logger = require('../utils/logger');
 
 exports.fetchAvailBoats = async (dateTime) => {
     try {
-        let desiredDateTime = new Date(dateTime);
+        let desiredDateTime = DateTime.fromISO(dateTime).toUTC(); // Tetap dalam UTC
+        logger(desiredDateTime.toString());
+        const oneHourLater = desiredDateTime.plus({ hours: 1 });
         const availableBoats = await prisma.boat.findMany({
             where: {
                 reservations: {
                     none: {
-                        rsv_datetime: desiredDateTime,
+                        AND: [
+                            {
+                                rsv_datetime: {
+                                    lte: oneHourLater.toISO(), // rsv_datetime <= oneHourLater
+                                },
+                            },
+                            {
+                                rsv_datetime_end: {
+                                    gte: desiredDateTime.toISO(), // rsv_datetime_end >= desiredDateTime
+                                },
+                            }
+                        ],
                     },
                 },
             },
@@ -18,7 +32,7 @@ exports.fetchAvailBoats = async (dateTime) => {
         });
 
         return availableBoats;
-    } catch (e) {
+    } catch (error) {
         console.error('Error in boatService.getAvailableBoats:', error);
         throw new Error('Could not fetch available boats');
     }
