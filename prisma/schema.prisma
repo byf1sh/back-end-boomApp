@@ -8,11 +8,12 @@ datasource db {
 }
 
 model Boat {
-  boat_id   Int    @id @default(autoincrement())
-  boat_name String @db.VarChar(255)
+  boat_id   Int      @id @default(autoincrement())
+  boat_name String   @db.VarChar(255)
   capacity  Int
   reservations Reservation[]
   cancel_reservations Cancel_Reservation[]
+  reviews   Review[]
 }
 
 model User {
@@ -23,6 +24,7 @@ model User {
   reservations       Reservation[]
   cancel_reservations Cancel_Reservation[]
   otps               Otp[]               // Relasi one-to-many ke model Otp
+  reviews            Review[]
 }
 
 model Reservation {
@@ -62,4 +64,17 @@ model Otp {
   user      User     @relation(fields: [userId], references: [id]) // Foreign Key
 
   @@index([userId]) // Opsional: Untuk performa, buat index pada userId
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  boat_id   Int
+  user_id   Int
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  // Relasi ke Boat dan User
+  boat      Boat     @relation(fields: [boat_id], references: [boat_id])
+  user      User     @relation(fields: [user_id], references: [id])
 }
