@@ -11,6 +11,7 @@ model Boat {
   boat_id   Int      @id @default(autoincrement())
   boat_name String   @db.VarChar(255)
   capacity  Int
+  price     Int      @default(500000)  // Menambahkan default value
   reservations Reservation[]
   cancel_reservations Cancel_Reservation[]
   reviews   Review[]
@@ -21,6 +22,10 @@ model User {
   name               String
   email              String              @unique(map: "User_email_key")
   password           String
+  gender             String?              
+  phone              String?              
+  city               String?              
+
   reservations       Reservation[]
   cancel_reservations Cancel_Reservation[]
   otps               Otp[]               // Relasi one-to-many ke model Otp
@@ -28,12 +33,14 @@ model User {
 }
 
 model Reservation {
-  rsv_id           Int      @id @default(autoincrement())
-  boat_id          Int
-  user_id          Int
-  rsv_datetime     DateTime @default(now())  // Tambahkan default value
-  rsv_datetime_end     DateTime @default(now())  // Tambahkan default value
-  number_of_people Int
+  rsv_id            Int      @id @default(autoincrement())
+  boat_id           Int
+  user_id           Int
+  rsv_datetime      DateTime @default(now())
+  rsv_datetime_end  DateTime @default(now())
+  number_of_people  Int
+  payment_method    String   @default("Transfer")
+  paid              Boolean  @default(false)
 
   boat   Boat   @relation(fields: [boat_id], references: [boat_id])
   user   User   @relation(fields: [user_id], references: [id])
@@ -47,6 +54,7 @@ model Cancel_Reservation {
   rsv_datetime     DateTime
   rsv_datetime_end DateTime
   number_of_people Int
+  payment_method   String   @default("Transfer")
   canceled_at      DateTime @default(now()) // Menyimpan kapan reservasi dibatalkan
 
   boat   Boat   @relation(fields: [boat_id], references: [boat_id])
@@ -77,4 +85,13 @@ model Review {
   // Relasi ke Boat dan User
   boat      Boat     @relation(fields: [boat_id], references: [boat_id])
   user      User     @relation(fields: [user_id], references: [id])
+}
+
+model News {
+  id        Int      @id @default(autoincrement())
+  url_foto  String
+  title     String
+  location  String
+  content   String
+  createdAt DateTime @default(now())
 }

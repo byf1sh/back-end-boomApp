@@ -4,12 +4,12 @@ const logger = require('../../utils/logger');
 const { utcHelper } = require('../../utils/utcHelper');
 
 exports.createReservation = async (req, res) => {
-    const { user_id, boat_id, rsv_date, rsv_time, number_of_people } = req.body;
+    const { user_id, boat_id, rsv_date, rsv_time, number_of_people, payment_method, gender, phone, city } = req.body;
 
     try {
         //if develop to prod check this, utcHelper may not needed anymore
         const adjustedTime = utcHelper(rsv_time);
-        const reservation = await reservationReservationService.createReservation(user_id, boat_id, rsv_date, adjustedTime, number_of_people);
+        const reservation = await reservationReservationService.createReservation(user_id, boat_id, rsv_date, adjustedTime, number_of_people, payment_method, gender, phone, city);
         res.status(201).json({ message: 'Reservation created successfully', reservation });
     } catch(e) {
         handleError(e, res);
