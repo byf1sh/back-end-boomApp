@@ -13,7 +13,7 @@ const createReview = async (req, res) => {
 // Get all reviews for a product
 const getReviews = async (req, res) => {
   try {
-    const reviews = await reviewService.getReviewsByBoatId(req.params.boat_id);
+    const reviews = await reviewService.getReviewsByBoatId(req.query.rsv_id);
     res.status(200).json(reviews);
   } catch (err) {
     res.status(400).json({ error: err.message });

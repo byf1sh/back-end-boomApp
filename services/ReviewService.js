@@ -1,27 +1,28 @@
 const prisma = require('../config/database');
-const {utcHelper, utcHelperPlus} = require('../utils/utcHelper');
+const { DateTime } = require('luxon');
 
 // Create a new review
 const createReview = async (data) => {
-  const { boat_id, user_id, rating, comment } = data;
-  let createdAt = utcHelperPlus();
+  const { rsv_id, user_id, rating, comment } = data;
+  const createdAt = DateTime.now().setZone('utc').plus({ hours: 7 });
   const newReview = await prisma.review.create({
     data: {
-      boat_id,
+      rsv_id,
       user_id,
       rating,
       comment,
-      createdAt
+      createdAt: createdAt.toISO()
     }
   });
   return newReview;
 };
 
-const getReviewsByBoatId = async (boat_id) => {
+const getReviewsByBoatId = async (rsv_id, user_id) => {
   const reviews = await prisma.review.findMany({
-    where: boat_id ? {
-      boat_id: parseInt(boat_id),
-    } : {},  // Jika boat_id tidak didefinisikan, ambil semua review
+    where: {
+      ...(rsv_id ? { rsv_id: parseInt(rsv_id) } : {}),  // Filter berdasarkan rsv_id jika ada
+      ...(user_id ? { user_id: parseInt(user_id) } : {}),  // Filter berdasarkan user_id jika ada
+    },
     take: 10,  // Batasi hasil yang diambil hingga 10
     orderBy: {
       createdAt: 'desc'  // Urutkan berdasarkan createdAt dari yang terbaru
@@ -29,6 +30,7 @@ const getReviewsByBoatId = async (boat_id) => {
   });
   return reviews;
 };
+
 
 
 // Delete a review by ID

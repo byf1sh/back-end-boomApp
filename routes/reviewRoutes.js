@@ -5,8 +5,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 router.post('/create', authMiddleware, reviewController.createReview);
-router.get('/get-reviews/', authMiddleware, reviewController.getReviews);
-router.get('/get-reviews/:boat_id', authMiddleware, reviewController.getReviews);
+router.get('/get-reviews', authMiddleware, reviewController.getReviews);
 router.delete('/delete/:id', authMiddleware, reviewController.deleteReview);
 
 module.exports = router;

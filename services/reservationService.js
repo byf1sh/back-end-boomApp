@@ -5,12 +5,9 @@ const {utcHelper, utcHelperPlus} = require('../utils/utcHelper');
 
 exports.createReservation = async (user_id, boat_id, rsv_date, rsv_time, number_of_people, payment_method, gender, phone, city) => {
     try {
-        // 1. Ambil data user berdasarkan user_id
         const user = await prisma.user.findUnique({
             where: { id: user_id },
         });
-
-        // 2. Cek apakah `phone` dan `city` null
         if (user.phone === null || user.city === null || user.gender === null) {
             console.log('null nih');
             await prisma.user.update({
@@ -22,13 +19,9 @@ exports.createReservation = async (user_id, boat_id, rsv_date, rsv_time, number_
                 },
             });
         }
-
-        // 3. Konversi tanggal dan waktu reservasi
-        let reservationDateTime = DateTime.fromISO(`${rsv_date}T${rsv_time}`, { zone: 'Asia/Jakarta' });
+        let reservationDateTime = DateTime.fromISO(`${rsv_date}T${rsv_time}`,{ zone: 'utc' });
         reservationDateTime = reservationDateTime.set({ second: 0, millisecond: 0 });
         const oneHourLater = reservationDateTime.plus({ hours: 1 });
-
-        // 4. Buat reservasi
         return await prisma.reservation.create({
             data: {
                 user_id,
@@ -44,43 +37,44 @@ exports.createReservation = async (user_id, boat_id, rsv_date, rsv_time, number_
     }
 };
 
-
 exports.cancelReservation = async (rsv_id) => {
-    try{
-
+    try {
         const reservation = await prisma.reservation.findUnique({
             where: {
                 rsv_id: rsv_id,
             },
         });
-
         if (!reservation) {
             throw new Error('Reservation not found');
         }
-        let canceledDate = utcHelperPlus();
-
-        const canceledReservation = await prisma.cancel_Reservation.create({
-            data: {
-                boat_id: reservation.boat_id,
-                user_id: reservation.user_id,
-                rsv_id: reservation.rsv_id,
-                rsv_datetime: reservation.rsv_datetime,
-                rsv_datetime_end: reservation.rsv_datetime_end,
-                number_of_people: reservation.number_of_people,
-                payment_method: reservation.payment_method,
-                canceled_at: canceledDate,
-            },
-        }); 
-
-        return await prisma.reservation.delete({
+        const updatedReservation = await prisma.reservation.update({
             where: {
                 rsv_id: reservation.rsv_id,
             },
+            data: {
+                status: 'Canceled',
+                rsv_datetime_end: new Date(), // Optionally, you can update the end time if needed
+            },
         });
-
-
+        return updatedReservation; // Return data reservasi yang sudah diupdate
     } catch (e) {
         throw new Error('Could not cancel reservation');
     }
 };
 
+exports.getReservationsByUserId = async(user_id) => {
+    try{
+        const reservations = await prisma.reservation.findMany({
+            where: {
+                user_id: user_id,
+            },
+            include: {
+                boat: true,
+            },
+        });
+        return reservations;
+        
+    } catch (e) {
+        throw new Error(e.message);
+    }
+};

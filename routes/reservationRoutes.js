@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.post('/create-reservation', authMiddleware, reservationController.createReservation);
 router.post('/cancel-reservation', authMiddleware, reservationController.cancelReservation);
+router.get('/reservation', authMiddleware, reservationController.getUserReservations);
 
 module.exports = router;

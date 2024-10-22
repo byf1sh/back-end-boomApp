@@ -5,7 +5,6 @@ const logger = require('../utils/logger');
 exports.fetchAvailBoats = async (dateTime) => {
     try {
         let desiredDateTime = DateTime.fromISO(dateTime).toUTC(); // Tetap dalam UTC
-        logger(desiredDateTime.toString());
         const oneHourLater = desiredDateTime.plus({ hours: 1 });
         const availableBoats = await prisma.boat.findMany({
             where: {

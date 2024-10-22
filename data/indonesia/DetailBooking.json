@@ -1,0 +1,26 @@
+[
+  {
+    "Judul": "Boom Raft",
+    "Deskripsi_Judul": "Nikmati pengalaman seru rafting di Sungai Cileunca dengan jarak sekitar 5 km, yang memakan waktu kurang lebih 1.5 hingga 2 jam. Anda akan melewati 20 jeram yang menantang. Kami menyediakan layanan antar jemput dari Pineus Tilu ke titik start rafting dan kembali ke Pineus Tilu setelah selesai rafting.",
+    "Sub_Judul_1": "Pilih Tanggal",
+    "Sub_Judul_2": "Tipe Rafting",
+    "Sub_Judul_3": "Jumlah Semua Partisipan",
+    "Sub_Judul_4": "Tambahan Fasilitas",
+    "Tombol_Booking_Sebelum_Terisi": "Isi Data Sebelum Pesan",
+    "Tombol_Booking_Sesudah_Terisi": "Pesan",
+    "Rafting1_Sub_Type": "Rafting Kecil",
+    "Rafting1_Number_of_people": "4 Orang",
+    "Rafting1_URL_Foto": "https://adwadas",
+    "Rafting1_Harga": "Rp.700.000",
+    "Rafting2_Sub_Type": "Rafting Sedang",
+    "Rafting2_Number_of_people": "5 Orang",
+    "Rafting2_URL_Foto": "https://adwadas",
+    "Rafting2_Harga": "Rp.875.000",
+    "Rafting3_Sub_Type": "Rafting Besar",
+    "Rafting3_Number_of_people": "6 Orang",
+    "Rafting3_URL_Foto": "https://adwadas",
+    "Rafting3_Harga": "Rp.1.050.000",
+    "Fasilitas": "Dokumentasi",
+    "Fasilitas_harga": "Rp.100.000"
+  }
+]

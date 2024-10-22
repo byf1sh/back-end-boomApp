@@ -13,8 +13,6 @@ model Boat {
   capacity  Int
   price     Int      @default(500000)  // Menambahkan default value
   reservations Reservation[]
-  cancel_reservations Cancel_Reservation[]
-  reviews   Review[]
 }
 
 model User {
@@ -27,7 +25,6 @@ model User {
   city               String?              
 
   reservations       Reservation[]
-  cancel_reservations Cancel_Reservation[]
   otps               Otp[]               // Relasi one-to-many ke model Otp
   reviews            Review[]
 }
@@ -41,24 +38,12 @@ model Reservation {
   number_of_people  Int
   payment_method    String   @default("Transfer")
   paid              Boolean  @default(false)
+  status            String   @default("On Going")
 
   boat   Boat   @relation(fields: [boat_id], references: [boat_id])
   user   User   @relation(fields: [user_id], references: [id])
-}
 
-model Cancel_Reservation {
-  cancel_id        Int      @id @default(autoincrement())
-  boat_id          Int
-  user_id          Int
-  rsv_id           Int
-  rsv_datetime     DateTime
-  rsv_datetime_end DateTime
-  number_of_people Int
-  payment_method   String   @default("Transfer")
-  canceled_at      DateTime @default(now()) // Menyimpan kapan reservasi dibatalkan
-
-  boat   Boat   @relation(fields: [boat_id], references: [boat_id])
-  user   User   @relation(fields: [user_id], references: [id])
+  reviews Review[]
 }
 
 model Otp {
@@ -76,15 +61,14 @@ model Otp {
 
 model Review {
   id        Int      @id @default(autoincrement())
-  boat_id   Int
+  rsv_id    Int      // Foreign key mengacu ke Reservation
   user_id   Int
   rating    Int
   comment   String?
   createdAt DateTime @default(now())
 
-  // Relasi ke Boat dan User
-  boat      Boat     @relation(fields: [boat_id], references: [boat_id])
-  user      User     @relation(fields: [user_id], references: [id])
+  reservation Reservation @relation(fields: [rsv_id], references: [rsv_id])
+  user        User        @relation(fields: [user_id], references: [id])
 }
 
 model News {
