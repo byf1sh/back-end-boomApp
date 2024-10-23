@@ -9,7 +9,6 @@ exports.createReservation = async (user_id, boat_id, rsv_date, rsv_time, number_
             where: { id: user_id },
         });
         if (user.phone === null || user.city === null || user.gender === null) {
-            console.log('null nih');
             await prisma.user.update({
                 where: { id: user_id },
                 data: {
@@ -37,7 +36,7 @@ exports.createReservation = async (user_id, boat_id, rsv_date, rsv_time, number_
     }
 };
 
-exports.cancelReservation = async (rsv_id) => {
+exports.statusReservation = async (action, rsv_id, newEndDate) => {
     try {
         const reservation = await prisma.reservation.findUnique({
             where: {
@@ -47,18 +46,33 @@ exports.cancelReservation = async (rsv_id) => {
         if (!reservation) {
             throw new Error('Reservation not found');
         }
+        let updatedData = {};
+        if (action === 'reschedule') {
+            const rsv_datetime = new Date(newEndDate);
+            const rsv_datetime_end = new Date(rsv_datetime);
+            rsv_datetime_end.setHours(rsv_datetime_end.getHours() + 1);
+            updatedData = {
+                status: 'Reschedule',
+                rsv_datetime: rsv_datetime, // Update dengan tanggal akhir yang baru (jika diperlukan)
+                rsv_datetime_end: rsv_datetime_end, // Update dengan tanggal akhir yang baru (jika diperlukan)
+            };
+        } else if (action === 'cancel') {
+            updatedData = {
+                status: 'Canceled',
+                rsv_datetime_end: DateTime.now().setZone('utc').plus({ hours: 7 }), // Mengubah waktu akhir menjadi waktu saat ini
+            };
+        } else {
+            throw new Error('Invalid action');
+        }
         const updatedReservation = await prisma.reservation.update({
             where: {
                 rsv_id: reservation.rsv_id,
             },
-            data: {
-                status: 'Canceled',
-                rsv_datetime_end: new Date(), // Optionally, you can update the end time if needed
-            },
+            data: updatedData,
         });
-        return updatedReservation; // Return data reservasi yang sudah diupdate
+        return updatedReservation; // Kembalikan data reservasi yang sudah diperbarui
     } catch (e) {
-        throw new Error('Could not cancel reservation');
+        throw new Error('Could not update reservation: ' + e.message);
     }
 };
 

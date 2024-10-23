@@ -14,6 +14,6 @@ router.post('/verify-otp', verifyOtp, userController.verifyOtp);
 
 router.get('/profile', authMiddleware, userController.getProfile);
 
-router.get('/index', authMiddleware, userController.getIndex);
+router.post('/edit-profile', authMiddleware, userController.updateProfile);
 
 module.exports = router;

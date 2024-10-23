@@ -23,6 +23,7 @@ model User {
   gender             String?              
   phone              String?              
   city               String?              
+  birth              DateTime?              
 
   reservations       Reservation[]
   otps               Otp[]               // Relasi one-to-many ke model Otp

@@ -15,13 +15,22 @@ exports.createReservation = async (req, res) => {
     }
 };
 
-exports.cancelReservation = async (req, res) => {
-    const {rsv_id} = req.body;
-    try{
-        const cancel = await reservationReservationService.cancelReservation(rsv_id);
-        res.status(201).json({ message: 'Reservation canceled successfully', cancel })
+exports.statusReservation = async (req, res) => {
+    const action = req.query.action;
+    const { rsv_id, newDate } = req.body;
+    try {
+        const updatedReservation = await reservationReservationService.statusReservation(action, rsv_id, newDate);
+        let message;
+        if (action === 'cancel') {
+            message = 'Reservation canceled successfully';
+        } else if (action === 'reschedule') {
+            message = 'Reservation rescheduled successfully';
+        } else {
+            message = 'Action performed successfully';
+        }
+        res.status(201).json({ message, updatedReservation });
     } catch (e) {
-        handleError(e,res);
+        handleError(e, res);
     }
 };
 
