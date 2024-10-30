@@ -5,8 +5,8 @@ const logger = require('../../utils/logger');
 const { utcHelper } = require('../../utils/utcHelper');
 
 exports.createReservation = async (req, res) => {
-    const { user_id, boat_id, rsv_date, rsv_time, number_of_people, payment_method, gender, phone, city } = req.body;
-
+    const { boat_id, rsv_date, rsv_time, number_of_people, payment_method, gender, phone, city } = req.body;
+    const user_id = req.user.id;
     try {
         const reservation = await reservationReservationService.createReservation(user_id, boat_id, rsv_date, rsv_time, number_of_people, payment_method, gender, phone, city);
         res.status(201).json({ message: 'Reservation created successfully', reservation });
@@ -35,7 +35,7 @@ exports.statusReservation = async (req, res) => {
 };
 
 exports.getUserReservations = async (req, res) => {
-    const user_id = parseInt(req.query.user_id); // Ambil user_id dari query params
+    const user_id = req.user.id; // Ambil user_id dari query params
     try {
         const reservations = await reservationReservationService.getReservationsByUserId(user_id);
         for (let reservation of reservations) {

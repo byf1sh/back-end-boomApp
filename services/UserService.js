@@ -35,7 +35,9 @@ exports.loginUser = async (email, password) => {
         const otp = otpService.generateOtp(user.id);
         console.log(otp);
         await otpService.saveOtpToDb(user.id, otp);
-        return { userId: user.id, otp };
+        const token = generateToken(user.id, user.email);
+        console.log(token)
+        return { userId: user.id, otp, token};
     } catch (e) {
         throw new Error(e.message);
     }

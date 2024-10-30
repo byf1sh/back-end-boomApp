@@ -11,8 +11,9 @@ exports.getDetailBookingData = (req, res) => {
 };
 
 exports.editDetailBookingData = (req, res) => {
+  const targetPage = req.query.targetPage; // Data yang dikirimkan dari request body
   const updatedData = req.body; // Data yang dikirimkan dari request body
-  DetailBookingService.editDetailBookingData(updatedData, (err, data) => {
+  DetailBookingService.editDetailBookingData(updatedData, targetPage, (err, data) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }

@@ -1,26 +1,121 @@
 [
   {
-    "Judul": "Boom Raft",
-    "Deskripsi_Judul": "Nikmati pengalaman seru rafting di Sungai Cileunca dengan jarak sekitar 5 km, yang memakan waktu kurang lebih 1.5 hingga 2 jam. Anda akan melewati 20 jeram yang menantang. Kami menyediakan layanan antar jemput dari Pineus Tilu ke titik start rafting dan kembali ke Pineus Tilu setelah selesai rafting.",
-    "Sub_Judul_1": "Pilih Tanggal",
-    "Sub_Judul_2": "Tipe Rafting",
-    "Sub_Judul_3": "Jumlah Semua Partisipan",
-    "Sub_Judul_4": "Tambahan Fasilitas",
-    "Tombol_Booking_Sebelum_Terisi": "Isi Data Sebelum Pesan",
-    "Tombol_Booking_Sesudah_Terisi": "Pesan",
-    "Rafting1_Sub_Type": "Rafting Kecil",
-    "Rafting1_Number_of_people": "4 Orang",
-    "Rafting1_URL_Foto": "https://adwadas",
-    "Rafting1_Harga": "Rp.700.000",
-    "Rafting2_Sub_Type": "Rafting Sedang",
-    "Rafting2_Number_of_people": "5 Orang",
-    "Rafting2_URL_Foto": "https://adwadas",
-    "Rafting2_Harga": "Rp.875.000",
-    "Rafting3_Sub_Type": "Rafting Besar",
-    "Rafting3_Number_of_people": "6 Orang",
-    "Rafting3_URL_Foto": "https://adwadas",
-    "Rafting3_Harga": "Rp.1.050.000",
-    "Fasilitas": "Dokumentasi",
-    "Fasilitas_harga": "Rp.100.000"
+    "Signup_Page": {
+      "Tombol_Signup_Google": "Daftar Dengan Google",
+      "Sub_Judul_or": "or",
+      "hint_text_1": "Nama Depan",
+      "hint_text_2": "Nama Belakang",
+      "hint_text_3": "Email",
+      "hint_text_4": "Password",
+      "hint_text_5": "Ulangi Password",
+      "Tombol_Signup": "Daftar",
+      "Sub_Judul_Signup": "Sudah punya akun?",
+      "Sub_Judul_Signup_bold": "Masuk!"
+    }
+  },
+  {
+    "OTP_Page": {
+      "Judul": "tes query",
+      "Sub_Judul_1": "Pilih Tanggal",
+      "Tombol_Verify": "Verifikasi",
+      "Sub_Judul_Verify": "Tidak mendapatkan kode?",
+      "Sub_Judul_Verify_bold": "Kirim ulang"
+    }
+  },
+  {
+    "Login_Page": {
+      "Tombol_Login_Google": "Daftar Dengan Google",
+      "Sub_Judul_or": "or",
+      "hint_text_1": "Email",
+      "hint_text_2": "Password",
+      "Tombol_Login": "Masuk",
+      "Sub_Judul_Login": "Belum punya akun?",
+      "Sub_Judul_Login_bold": "Daftar!"
+    }
+  },
+  {
+    "Home_Page": {
+      "Tombol_News": "Jelajahi Sekarang",
+      "Sub_Judul_1": "Rekomendasi Kami",
+      "Sub_Judul_2": "Ulasan",
+      "small_raft": "Rafting Kecil",
+      "small_raft_orang": "4 orang",
+      "medium_raft": "Rafting Sedang",
+      "medium_raft_orang": "5 orang",
+      "large_raft": "Rafting Besar",
+      "large_raft_orang": "8 orang",
+      "tombol_raft": "Pesan"
+    }
+  },
+  {
+    "Detail_Booking_Page": {
+      "Judul": "tes query",
+      "Deskripsi_Judul": "Nikasdmati pengalaman seru rafting di Sungai Cileunca dengan jarak sekitar 5 km, yang memakan waktu kurang lebih 1.5 hingga 2 jam. Anda akan melewati 20 jeram yang menantang. Kami menyediakan layanan antar jemput dari Pineus Tilu ke titik start rafting dan kembali ke Pineus Tilu setelah selesai rafting.",
+      "Sub_Judul_1": "Pilih Tanggal",
+      "Sub_Judul_2": "Tipe Rafting",
+      "Sub_Judul_3": "Jumlah Semua Partisipan",
+      "Sub_Judul_4": "Tambahan Fasilitas",
+      "Tombol_Booking_Sebelum_Terisi": "Isi Data Sebelum Pesan",
+      "Tombol_Booking_Sesudah_Terisi": "Pesan",
+      "Rafting1_Sub_Type": "Rafting Kecil",
+      "Rafting1_Number_of_people": "4 Orang",
+      "Rafting1_URL_Foto": "https://adwadas",
+      "Rafting1_Harga": "Rp.700.000",
+      "Rafting2_Sub_Type": "Rafting Sedang",
+      "Rafting2_Number_of_people": "5 Orang",
+      "Rafting2_URL_Foto": "https://adwadas",
+      "Rafting2_Harga": "Rp.875.000",
+      "Rafting3_Sub_Type": "Rafting Besar",
+      "Rafting3_Number_of_people": "6 Orang",
+      "Rafting3_URL_Foto": "https://adwadas",
+      "Rafting3_Harga": "Rp.1.050.000",
+      "Fasilitas": "Dokumentasi",
+      "Fasilitas_harga": "Rp.100.000"
+    }
+  },
+  {
+    "Review_Booking_Page": {
+      "Judul": "Detail Booking",
+      "Sub_Judul_1": "Pesanan pada",
+      "Sub_Judul_2": "Saya booking untuk",
+      "Sub_Judul_2_radio_1": "Diri saya",
+      "Sub_Judul_2_radio_2": "Orang lain",
+      "Sub_Judul_3": "Alamat Email",
+      "Sub_Judul_4": "Nama Depan",
+      "Sub_Judul_5": "Nama Akhir",
+      "Sub_Judul_6": "Nomor Telfon",
+      "Sub_Judul_7": "Alamat, Kota",
+      "Sub_Judul_8": "Metode Pembayaran",
+      "Sub_Judul_8_radio_1": "Bayar Sekarang",
+      "Sub_Judul_8_radio_2": "Bayar Ditempat",
+      "Tombol_1": "Pesan Sekarang"
+    }
+  },
+  {
+    "Notification_Page": {
+      "Judul": "Notification",
+      "Sub_Judul_reschedule": "Kamu telah melakukan reschedule untuk pemesanan",
+      "Sub_Judul_reschedule_desc": "Kamu telah melakukan reschedule untuk pemesanan",
+      "Sub_Judul_booking": "Kamu telah melakukan booking untuk pemesanan",
+      "Sub_Judul_booking_desc": "Kamu telah melakukan booking untuk pemesanan",
+      "Sub_Judul_cancel": "Kamu telah membatalkan pemesanan",
+      "Sub_Judul_cancel_desc": "Kamu telah membatalkan pemesanan"
+    }
+  },
+  {
+    "Transaction_Page": {
+      "Judul": "Pembayaran",
+      "Sub_Judul_1": "Berlangsung",
+      "Sub_Judul_2": "Riwayat",
+      "Sub_Judul_3": "Total Pembayaran",
+      "Sub_Judul_4": "Ulasan",
+      "Tombol_reschedule_cancel": "Jadwalkan Ulang/Batalkan",
+      "Status_ongoing": "Berlangsung",
+      "Status_complete": "Selesai",
+      "Status_cancel": "Dibatalkan",
+      "Sub_Judul_booking_desc": "Kamu telah melakukan booking untuk pemesanan",
+      "Sub_Judul_cancel": "Kamu telah membatalkan pemesanan",
+      "Sub_Judul_cancel_desc": "Kamu telah membatalkan pemesanan"
+    }
   }
 ]

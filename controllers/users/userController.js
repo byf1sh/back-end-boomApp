@@ -17,8 +17,8 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-      const { userId, otp } = await userService.loginUser(email, password);
-      res.status(200).json({ message: 'OTP sent to your email. Please verify.', userId });
+      const { userId, otp , token} = await userService.loginUser(email, password);
+      res.status(200).json({ message: 'OTP sent to your email. Please verify.', userId, token });
   } catch (e) {
       res.status(403).json({ message: e.message });
   }
